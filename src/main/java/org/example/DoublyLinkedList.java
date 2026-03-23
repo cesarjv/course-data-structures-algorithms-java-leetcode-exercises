@@ -136,4 +136,21 @@ public class DoublyLinkedList {
         }
         return temp;
     }
+
+    public boolean isPalindrome() {
+
+         Node forwards=head;
+         Node backwards=tail;
+         if(length==0 || length==1){
+             return true;
+         }
+         while(forwards != backwards && forwards.prev != backwards){
+             if(forwards.value != backwards.value){
+                 return false;
+             }
+             forwards=forwards.next;
+             backwards=backwards.prev;
+         }
+         return true;
+    }
 }
