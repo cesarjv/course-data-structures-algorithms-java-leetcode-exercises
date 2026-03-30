@@ -153,4 +153,20 @@ public class DoublyLinkedList {
          }
          return true;
     }
+
+    public void reverse(){
+        Node current=head;
+        Node temp;
+        Node last=null;
+        Node oldHead = head;
+            while(current!=null){
+                temp=current.prev; /* temp=null,1 */
+                current.prev=current.next; /* current.prev=2,3 */
+                current.next=temp;/* current.next=null,1*/
+                last=current;/* 1,2 */
+                current=current.prev;/* current=2,3 */
+            }
+        head = last; /* 1,2*/
+        tail = oldHead;
+    }
 }
