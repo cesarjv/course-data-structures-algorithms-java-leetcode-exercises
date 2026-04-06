@@ -169,4 +169,135 @@ public class DoublyLinkedList {
         head = last; /* 1,2*/
         tail = oldHead;
     }
+
+    public void partitionList(int x){
+        Node current=head;
+        Node leftHead=null;
+        Node leftTail=null;
+        Node rightHead=null;
+        Node rightTail=null;
+        Node next=null;
+
+        if(head==null) return;
+
+        while (current!=null){
+            next=current.next;
+            current.next=null;
+            current.prev=null;
+            if(current.value < x){
+                if(leftHead==null){
+                    leftHead=current;
+                    leftTail=current;
+                }
+                else {
+                    leftTail.next=current;
+                    current.prev=leftTail;
+                    leftTail=current;
+                }
+            }
+            else {
+                if(rightHead==null){
+                    rightHead=current;
+                    rightTail=current;
+                }
+                else {
+                    rightTail.next=current;
+                    current.prev=rightTail;
+                    rightTail=current;
+                }
+            }
+            current=next;
+        }
+
+        if(leftHead!=null && rightHead !=null){
+            leftTail.next=rightHead;
+            rightHead.prev=leftTail;
+            head=leftHead;
+            tail=rightTail;
+        }
+        else if(leftHead==null){
+            head=rightHead;
+            tail=rightTail;
+            rightHead.prev=null;
+        }
+        else if(rightHead==null){
+            head=leftHead;
+            tail=leftTail;
+            leftHead.prev=null;
+        }
+     }
+
+    public void reverseBetween(int startIndex, int endIndex) {
+
+        Node tail=null;
+
+        // ✅ Lista vacía o tramo de longitud 0
+        if (head == null || startIndex == endIndex) return;
+
+        // ✅ Soporte de rangos invertidos
+        if (startIndex > endIndex) {
+            int temp = startIndex;
+            startIndex = endIndex;
+            endIndex = temp;
+        }
+
+        // ✅ Convertir índices 0-based a 1-based
+        startIndex++;
+        endIndex++;
+
+        // ✅ Contar longitud
+        int length = 0;
+        Node t = head;
+        while (t != null) {
+            length++;
+            t = t.next;
+        }
+
+        // ✅ Indices fuera de rango
+        if (startIndex > length) return;
+        if (endIndex > length) endIndex = length;
+
+        // ✅ Crear dummy para simplificar todo
+        Node dummy = new Node(0);
+        dummy.next = head;
+        head.prev = dummy;
+
+        // ✅ Mover prev al nodo previo al startIndex
+        Node prev = dummy;
+        for (int i = 1; i < startIndex; i++) {
+            prev = prev.next;
+        }
+
+        // ✅ current es el primer nodo del tramo
+        Node current = prev.next;
+
+        // ✅ Reubicar nodos al inicio del tramo
+        for (int i = 0; i < endIndex - startIndex; i++) {
+
+            Node nodeToMove = current.next;
+
+            // Quitar nodeToMove del tramo
+            current.next = nodeToMove.next;
+            if (nodeToMove.next != null)
+                nodeToMove.next.prev = current;
+
+            // Insertar nodeToMove al inicio del tramo
+            nodeToMove.next = prev.next;
+            prev.next.prev = nodeToMove;
+
+            prev.next = nodeToMove;
+            nodeToMove.prev = prev;
+        }
+
+        // ✅ Actualizar head real
+        head = dummy.next;
+        head.prev = null;
+
+        // ✅ Actualizar tail real
+        Node tailSearch = head;
+        while (tailSearch.next != null)
+            tailSearch = tailSearch.next;
+
+        tail = tailSearch;
+    }
 }
