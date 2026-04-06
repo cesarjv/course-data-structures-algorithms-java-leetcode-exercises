@@ -13,5 +13,16 @@ public class Main {
         myDLL.printList();
         myDLL.removeLast();
         myDLL.printList();
+        DoublyLinkedListPractice myPractice = new DoublyLinkedListPractice(10);
+        myPractice.append(20);
+        myPractice.append(30);
+        myPractice.prepend(40);
+        myPractice.append(50);
+        myPractice.prepend(70);
+        myPractice.removeFirst();
+        myPractice.removeLast();
+        myPractice.printForward();
+        myPractice.removeAt(0);
+        myPractice.printForward();
     }
 }
