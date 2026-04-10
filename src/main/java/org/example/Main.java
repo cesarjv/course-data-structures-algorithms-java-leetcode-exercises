@@ -21,8 +21,17 @@ public class Main {
         myPractice.prepend(70);
         myPractice.removeFirst();
         myPractice.removeLast();
-        myPractice.printForward();
+        /*myPractice.printForward();*/
         myPractice.removeAt(0);
+        myPractice.printForward();
+        myPractice.moveToHead(2);
+        myPractice.printForward();
+        myPractice.append(100);
+        myPractice.append(40);
+        myPractice.printForward();
+        myPractice.moveFromIndexToIndex(1,4);
+        myPractice.printForward();
+        myPractice.reverse();
         myPractice.printForward();
     }
 }
