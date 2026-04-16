@@ -304,6 +304,11 @@ public class DoublyLinkedListPractice {
         }
 
         public void reverse(){
+
+            // ✅ Protección total contra lista vacía
+            if (head == null || head.next == null) {
+                return;
+            }
             Node dummy=new Node(0);
 
             if(head==null) return;
@@ -337,6 +342,36 @@ public class DoublyLinkedListPractice {
 
         }
 
+    public void swapPairs(){
+            Node dummy= new Node(0);
+            dummy.next=head;
+            if(head != null){
+                head.prev=dummy;
+            }
+            Node current=dummy;
+
+            while(current.next !=null && current.next.next != null){
+                    Node first=current.next;
+                    Node second=current.next.next;
+                    Node rest=second.next;
+                  // Conectar current con second
+                    current.next=second;
+                    second.prev=current;
+                  // Conectar second con first
+                    second.next=first;
+                    first.prev=second;
+                  // Conectar first con el resto
+                    first.next=rest;
+                    if (rest != null) {
+                      rest.prev = first;
+                    }
+                    current=first;
+              }
+
+            // actualizar head
+            head = dummy.next;
+            head.prev = null;
+    }
 }
 
 
