@@ -159,4 +159,35 @@ public class HashTable {
         }
         return new ArrayList<>(map.values());
     }
+
+
+    private int[] twoSum(int[] nums, int target) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int i = 0;
+        for (int num : nums) {
+            int complement = target - num;
+            if (map.containsKey(complement)) {
+                return new int[]{i, map.get(complement)};
+            }
+            map.put(num, i);
+            i++;
+        }
+        return new int[]{}; // ✅ arreglo vacío si no hay solución
+    }
+
+    private int[] subarraySum(int[] nums, int target){
+        HashMap<Integer,Integer> map=new HashMap<>();
+        int currentSum=0;
+        // 👇 MUY IMPORTANTE
+        map.put(0, -1);
+        for(int i=0; i < nums.length;i++){
+            currentSum=currentSum + nums[i];
+            if(map.containsKey(currentSum-target)){
+                var start=map.get(currentSum-target)+1;
+                return new int[]{start,i};
+            }
+            map.put(currentSum,i);
+        }
+        return new int[]{};
+    }
 }
